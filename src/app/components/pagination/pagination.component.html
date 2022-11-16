@@ -1,0 +1,11 @@
+<c-pagination [align]="align" style="cursor: pointer">
+  <li cPageItem>
+    <a cPageLink [ngClass]="{'active': paginate.current === 1}" (click)="selectPage(1)">Início</a>
+  </li>
+  <li cPageItem *ngFor="let page of counter(); let i = index">
+    <a cPageLink class="pointer-event" [ngClass]="{'active': paginate.current === i +1}" (click)="selectPage(i + 1)">{{i + 1 }}</a>
+  </li>
+  <li cPageItem>
+    <a cPageLink (click)="selectPage(paginate.total)">Fim</a>
+  </li>
+</c-pagination>

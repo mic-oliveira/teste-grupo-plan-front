@@ -1,0 +1,50 @@
+<c-row xmlns="http://www.w3.org/1999/html">
+  <c-col xs>
+    <c-card class="mb-4">
+      <c-card-body>
+        <form #form="ngForm" (ngSubmit)="submitForm()">
+          <c-row class="justify-content-between">
+            <c-col md="6">
+              <label cLabel >Modelo</label>
+              <input class="form-control" type="text" name="name"
+                     [(ngModel)]="homeAppliance.name" #name="ngModel" required />
+              <span *ngIf="name.invalid" class="text-danger">
+                <i class="fa fa-exclamation-circle"></i> Preencha o modelo
+              </span>
+            </c-col>
+            <c-col md="4">
+              <label cLabel >Fabricante</label>
+              <select class="form-select" name="manufacturerModel" [(ngModel)]="homeAppliance.manufacturer_id" required>
+                <ng-container *ngFor="let manufacturer of manufacturers">
+                  <option [selected]="manufacturer.id === homeAppliance.manufacturer_id"
+                          [value]="manufacturer.id">{{manufacturer.name}}</option>
+                </ng-container>
+
+              </select>
+            </c-col>
+            <c-col md="2">
+              <label cLabel >Voltagem</label>
+              <select class="form-select" name="voltage" [(ngModel)]="homeAppliance.voltage" required>
+                <option [selected]="homeAppliance.voltage == 110" value="110">110v</option>
+                <option [selected]="homeAppliance.voltage == 220" value="220">220v</option>
+              </select>
+            </c-col>
+          </c-row>
+          <c-row class="justify-content-between mt-2">
+            <c-col md="12">
+              <label cLabel >Descrição</label>
+              <textarea class="form-control" name="description" [(ngModel)]="homeAppliance.description"></textarea>
+            </c-col>
+          </c-row>
+          <c-row md="auto" class="justify-content-end mt-2">
+            <c-col>
+              <button [disabled]="form.invalid" class="btn btn-primary" type="submit">
+                <i class="fa fa-save"></i> Salvar
+              </button>
+            </c-col>
+          </c-row>
+        </form>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

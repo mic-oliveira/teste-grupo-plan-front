@@ -1,0 +1,78 @@
+<c-row>
+  <c-col xs>
+    <c-card class="mb-4">
+      <c-card-header>Eletro domésticos</c-card-header>
+      <c-card-body>
+        <c-row class="mb-b">
+          <c-col md="12">
+            <c-input-group class="mb-3">
+              <span cInputGroupText id="basic-addon1"><i class="fa fa-search"></i></span>
+              <input
+                class="form-control"
+                type="text" placeholder="Digite o modelo para pesquisa..."
+                [(ngModel)]="search" (ngModelChange)="searchQuery(search)"
+                (keydown)="paginate.current = 1"
+              >
+              <button class="btn btn-success" (click)="create()" type="button"><i class="fa fa-plus"></i> Novo</button>
+            </c-input-group>
+          </c-col>
+        </c-row>
+        <table
+          [hover]="true"
+          [small]="true"
+          [striped]="true"
+          cTable
+          class="border mt-1"
+        >
+          <thead cTableColor="light">
+          <tr>
+            <th class="col-1">#ID</th>
+            <th class="col-3">Modelo</th>
+            <th class="col-3">Descrição</th>
+            <th class="col-1 text-center">Voltagem</th>
+            <th class="col-2 text-center">Fabricante</th>
+            <th class="col text-center">Ações</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let homeAppliance of homeAppliances | async; index as i">
+
+            <td>
+              <div>{{ i + 1 }}</div>
+            </td>
+            <td>
+              <div>{{ homeAppliance.name }}</div>
+            </td>
+            <td>
+              <div>
+                {{ homeAppliance.description?.substring(0,120) }}
+                {{homeAppliance.description != undefined && homeAppliance.description!.length > 120 ? '...' : ''}}
+              </div>
+            </td>
+            <td>
+              <div class="text-center">{{ homeAppliance.voltage }}v</div>
+            </td>
+            <td>
+              <div class="text-center">{{ homeAppliance.manufacturer }}</div>
+            </td>
+            <td>
+              <c-row class="justify-content-center">
+                <c-col md="5">
+                  <button class="btn btn-primary" (click)="edit(homeAppliance.id)">Editar</button>
+                </c-col>
+                <c-col md="5">
+                  <button class="btn btn-warning" (click)="delete(homeAppliance.id)">Excluir</button>
+                </c-col>
+              </c-row>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </c-card-body>
+      <c-card-footer>
+        <app-pagination *ngIf="paginate.total > 1" [align]="'center'" [paginate]="paginate" (changePage)="changePage()">
+        </app-pagination>
+      </c-card-footer>
+    </c-card>
+  </c-col>
+</c-row>
